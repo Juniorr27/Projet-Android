@@ -40,6 +40,16 @@ class MainActivity : ComponentActivity() {
                             LigneResultat(resultat = resultat)
                         }
                     }
+                    ProjetAndroidTheme {
+                        // Scaffold est la structure de base d'un écran moderne
+                        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                            // On appelle notre composant ListeResultats
+                            ListeResultats(
+                                liste = resultatsTest,
+                                modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+                    }
 
                 }
             }
@@ -80,7 +90,7 @@ fun LigneResultat(resultat: Resultat) {
     }
 }
 @Composable
-fun ListeResultats(liste: List<Resultat>) {
+fun ListeResultats(liste: List<Resultat>, modifier: Modifier = Modifier) {
     // LazyColumn crée une liste qui ne charge que ce qui est visible à l'écran
     LazyColumn {
         items(liste) { unResultat ->
