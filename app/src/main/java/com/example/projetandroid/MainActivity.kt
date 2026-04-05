@@ -12,7 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.projetandroid.ui.theme.ProjetAndroidTheme
-
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.ui.unit.dp
+val resultatsTest = listOf(
+    Resultat(1, 3600, 100, false),
+    Resultat(2, 3850, 95, false),
+    Resultat(3, 4200, 80, true),
+    Resultat(0, 0, 0, false)
+)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,5 +53,22 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     ProjetAndroidTheme {
         Greeting("Android")
+    }
+}
+
+@Composable
+fun LigneResultat(resultat: Resultat) {
+    // Card crée une petite "carte" visuelle avec des bords arrondis
+    Card(modifier = Modifier.padding(8.dp)) {
+        // Column permet d'empiler les textes les uns sous les autres
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Résultat ID: ${resultat.resId}")
+            Text(text = "Temps: ${resultat.resTemps} secondes")
+            Text(text = "Points: ${resultat.resPoints}")
+
+            if (resultat.aSynchroniser) {
+                Text(text = "⚠️ En attente de synchronisation")
+            }
+        }
     }
 }
