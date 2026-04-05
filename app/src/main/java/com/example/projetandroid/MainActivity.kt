@@ -14,9 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.projetandroid.ui.theme.ProjetAndroidTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 val resultatsTest = listOf(
     Resultat(1, 3600, 100, false),
     Resultat(2, 3850, 95, false),
@@ -30,10 +34,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProjetAndroidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+                    LazyColumn(modifier = Modifier.padding(innerPadding)) {
+                        items(resultatsTest) { resultat ->
+                            LigneResultat(resultat = resultat)
+                        }
+                    }
+
                 }
             }
         }
@@ -69,6 +76,16 @@ fun LigneResultat(resultat: Resultat) {
             if (resultat.aSynchroniser) {
                 Text(text = "⚠️ En attente de synchronisation")
             }
+        }
+    }
+}
+@Composable
+fun ListeResultats(liste: List<Resultat>) {
+    // LazyColumn crée une liste qui ne charge que ce qui est visible à l'écran
+    LazyColumn {
+        items(liste) { unResultat ->
+            // Pour chaque élément de la liste, on dessine notre fameuse carte
+            LigneResultat(resultat = unResultat)
         }
     }
 }
